@@ -7,6 +7,11 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/WheelWhirlwind.styles.css" asp-append-version="true" />
+    <style>
+        .dropdown-menu {
+            min-width: 100%;
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -23,22 +28,40 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home"
-                                asp-action="Privacy">Qualcosa</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Qualcosa</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home"
-                                asp-action="Privacy">Privacy</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
                     </ul>
                     <ul class="navbar-nav">
                         <div class="hstack gap-3">
-                            <li class="nav-item">
-                                <a class="nav-link" asp-area="" asp-controller="Home" asp-action="SignUp">SignUp</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Login">Login</a>
-                            </li>
+                            @if(string.IsNullOrEmpty(Context.Session.GetString("Username"))){
+                                <ul class="navbar-nav ms-auto">
+                                    <li class="nav-item ">
+                                        <a class="nav-link" asp-area="" asp-controller="User" asp-action="Login">Login</a>
+                                    </li>
+                                    <li class="nav-item ">
+                                        <a class="nav-link" asp-area="" asp-controller="User" asp-action="SignUp">Sign Up</a>
+                                    </li>
+                                </ul>
+                            }else{
+                                <ul class="navbar-nav ms-auto">
+                                    <li class="nav-item">
+                                        <div class="dropdown">
+                                            <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                                                @Context.Session.GetString("EmailUser")
+                                            </button>
+                                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                <li><a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Riepilogo">Profilo</a></li>
+                                                <li><a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a></li>
+                                                <li><hr class="dropdown-divider"></li>
+                                                <li><a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Logout">Logout</a></li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                </ul>
+                            }
                             <div class="vr" style="color: black;"></div>
                             <li class="nav-item">
                                 <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Cart">Dark-Light Mode</a>

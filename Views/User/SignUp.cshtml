@@ -1,7 +1,16 @@
-@* @model User;
+@model User;
 
-@{
-    ViewData["Title"] = "Prenota";
+@if (TempData["Message"] != null)
+{
+    <div class="alert alert-success" role="alert">
+        @TempData["Message"]
+    </div>
+}
+@if (TempData["AlertMessage"] != null)
+{
+    <script>
+        alert("@TempData["AlertMessage"]");
+    </script>
 }
 
 <div class="container py-5">
@@ -9,7 +18,7 @@
         <div class="col-md-8">
             <div class="card shadow-lg border-primary">
                 <div class="card-body">
-                    <h1 class="card-title text-center mb-4">Registrazione</h1>
+                    <h1 class="card-title text-center mb-4">SignUp</h1>
 
                     <form method="post" asp-action="Summary">
                         <div class="row mb-3">
@@ -18,18 +27,18 @@
                                 <input required asp-for="Username" class="form-control" id="Username">
                             </div>
                             <div class="col-md-6">
-                                <label for="Password" class="form-label">Password</label>
-                                <input required asp-for="Password" class="form-control" type="password" id="Password">
+                                <label for="PasswordHash" class="form-label">Password</label>
+                                <input required asp-for="PasswordHash" class="form-control" type="password" id="Password">
                             </div>
                         </div>
                         <div class="row mb-3">
                             <div class="col-md-6">
-                                <label for="Nome" class="form-label">Nome</label>
-                                <input required asp-for="Nome" class="form-control" id="Nome">
+                                <label for="Nome" class="form-label">Name</label>
+                                <input required asp-for="Name" class="form-control" id="Name">
                             </div>
                             <div class="col-md-6">
-                                <label for="Cognome" class="form-label">Cognome</label>
-                                <input required asp-for="Cognome" class="form-control" id="Cognome">
+                                <label for="Cognome" class="form-label">Surname</label>
+                                <input required asp-for="Surname" class="form-control" id="Cognome">
                             </div>
                         </div>
                         <div class="mb-3">
@@ -37,38 +46,14 @@
                             <input placeholder="example@domain.com" required type="email" asp-for="Email" class="form-control" id="Email">
                         </div>
                         <div class="mb-3">
-                            <label for="dataNascita" class="form-label">Data di nascita</label>
-                            <input required type="date" asp-for="dataNascita" class="form-control" id="dataNascita">
-                        </div>
-
-                        <div class="mb-3">
-                            <label class="form-label">Sesso</label><br>
-                            <div class="form-check form-check-inline">
-                                <input required type="radio" value="Maschio" asp-for="sesso" class="form-check-input" id="maschio">
-                                <label class="form-check-label" for="maschio">Maschio</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input required type="radio" value="Femmina" asp-for="sesso" class="form-check-input" id="femmina">
-                                <label class="form-check-label" for="femmina">Femmina</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input required type="radio" value="Preferisco non rispondere" asp-for="sesso" class="form-check-input" id="non-rispondere">
-                                <label class="form-check-label" for="non-rispondere">Preferisco non rispondere</label>
+                            <label for="PhoneNumber" class="form-label">Phone number</label>
+                            <div class="input-group">
+                                <span class="input-group-text" style="width: 50px;">+39 </span>
+                                <input required type="tel" class="form-control" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" id="PhoneNumber" name="PhoneNumber" maxlength="12" placeholder="123-456-7890">
                             </div>
                         </div>
-
-                        <div class="mb-3">
-                            <label for="ruolo" class="form-label">Ruolo</label>
-                            <select required asp-for="ruolo" class="form-control" id="ruolo">
-                                <option value="">Seleziona un ruolo</option>
-                                <option value="Insegnante">Insegnante</option>
-                                <option value="Studente">Studente</option>
-                                <option value="Genitore">Genitore</option>
-                            </select>
-                        </div>
-
                         <div class="text-center">
-                            <button type="submit" class="btn btn-primary">Registrati</button>
+                            <button type="submit" class="btn btn-primary">Sign Up</button>
                         </div>
                     </form>
                 </div>
@@ -76,6 +61,6 @@
         </div>
     </div>
     <div class="text-center mt-3">
-        &reg; Hai già un account? <a asp-area="" asp-controller="User" asp-action="Login">Loggati qua</a>
+        &reg; Do you already have an account? <a asp-area="" asp-controller="User" asp-action="Login">Log in here</a>
     </div>
-</div> *@
+</div>
