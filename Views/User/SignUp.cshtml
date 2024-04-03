@@ -1,0 +1,81 @@
+@* @model User;
+
+@{
+    ViewData["Title"] = "Prenota";
+}
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-lg border-primary">
+                <div class="card-body">
+                    <h1 class="card-title text-center mb-4">Registrazione</h1>
+
+                    <form method="post" asp-action="Summary">
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="Username" class="form-label">Username</label>
+                                <input required asp-for="Username" class="form-control" id="Username">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="Password" class="form-label">Password</label>
+                                <input required asp-for="Password" class="form-control" type="password" id="Password">
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="Nome" class="form-label">Nome</label>
+                                <input required asp-for="Nome" class="form-control" id="Nome">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="Cognome" class="form-label">Cognome</label>
+                                <input required asp-for="Cognome" class="form-control" id="Cognome">
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="Email" class="form-label">Email</label>
+                            <input placeholder="example@domain.com" required type="email" asp-for="Email" class="form-control" id="Email">
+                        </div>
+                        <div class="mb-3">
+                            <label for="dataNascita" class="form-label">Data di nascita</label>
+                            <input required type="date" asp-for="dataNascita" class="form-control" id="dataNascita">
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Sesso</label><br>
+                            <div class="form-check form-check-inline">
+                                <input required type="radio" value="Maschio" asp-for="sesso" class="form-check-input" id="maschio">
+                                <label class="form-check-label" for="maschio">Maschio</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input required type="radio" value="Femmina" asp-for="sesso" class="form-check-input" id="femmina">
+                                <label class="form-check-label" for="femmina">Femmina</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input required type="radio" value="Preferisco non rispondere" asp-for="sesso" class="form-check-input" id="non-rispondere">
+                                <label class="form-check-label" for="non-rispondere">Preferisco non rispondere</label>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="ruolo" class="form-label">Ruolo</label>
+                            <select required asp-for="ruolo" class="form-control" id="ruolo">
+                                <option value="">Seleziona un ruolo</option>
+                                <option value="Insegnante">Insegnante</option>
+                                <option value="Studente">Studente</option>
+                                <option value="Genitore">Genitore</option>
+                            </select>
+                        </div>
+
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary">Registrati</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="text-center mt-3">
+        &reg; Hai già un account? <a asp-area="" asp-controller="User" asp-action="Login">Loggati qua</a>
+    </div>
+</div> *@
