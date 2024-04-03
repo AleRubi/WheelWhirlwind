@@ -4,8 +4,6 @@ using System.Text;
 using Microsoft.AspNetCore.Mvc;
 using WheelWhirlwind.Models;
 
-namespace Subito.Controllers;
-
 public class UserController : Controller
 {
     private readonly ILogger<UserController> _logger;

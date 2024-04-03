@@ -1,26 +1,22 @@
-﻿using System.Diagnostics;
+using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using WheelWhirlwind.Models;
 
-public class HomeController : Controller
+public class VehicleController : Controller
 {
-    private readonly ILogger<HomeController> _logger;
+    private readonly ILogger<VehicleController> _logger;
 
     
-    public HomeController(ILogger<HomeController> logger)
+    public VehicleController(ILogger<VehicleController> logger)
     {
         _logger = logger;
     }
 
-    public IActionResult Index()
+        public IActionResult Announcements()
     {
         return View();
     }
 
-    public IActionResult Privacy()
-    {
-        return View();
-    }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
