@@ -1,0 +1,53 @@
+@inject ApplicationDbContext context
+@model int
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="row mb-3">
+                <div class="col-md-4">
+                    <div class="card mb-3 mx-auto">
+                        <div class="row mb-3">
+                            <div class="col-md-8">
+                                @{
+                                    foreach(var item in context.Users){
+                                        if(item.UserId == Model){ <p> @item.Username </p> }
+                                    }
+                                }
+                            </div>
+                            <div class="col-md-4">
+                                @{
+                                    foreach(var item in context.Users){
+                                        if(item.UserId == Model){ 
+                                            <div style="width: 50px; height: 50px; border-radius: 50%; background-color: #007bff; color: #fff; display: flex; justify-content: center; align-items: center; font-size: 24px;">
+                                                @item.Username?.Substring(0, 1)
+                                            </div> 
+                                        }
+                                    }
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    Online announcement
+                    <div class="card mb-3 mx-auto" style="max-width: 540px;">
+                        <div class="row g-0">
+                            <div class="col-md-4">
+                                <img src="..." class="img-fluid rounded-start" alt="...">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <h5 class="card-title">Card title</h5>
+                                    <p class="card-text">This is a wider card with supporting text below as a natural
+                                        lead-in to additional content. This content is a little bit longer.</p>
+                                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
