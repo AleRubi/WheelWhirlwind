@@ -12,11 +12,11 @@ public class VehicleController : Controller
         _logger = logger;
     }
 
-        public IActionResult Announcements()
-    {
+    [HttpGet]
+    public IActionResult Announcements(){
+        
         return View();
     }
-
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
