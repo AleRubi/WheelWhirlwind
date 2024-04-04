@@ -6,10 +6,11 @@ using WheelWhirlwind.Models;
 public class UserController : Controller
 {
     private readonly ILogger<UserController> _logger;
-    private readonly ApplicationDbContext db = new();
-    public UserController(ILogger<UserController> logger)
+    private readonly ApplicationDbContext _db ;
+    public UserController(ILogger<UserController> logger, ApplicationDbContext db)
     {
         _logger = logger;
+        _db = db;
     }
 
     public IActionResult SignUp()
@@ -26,13 +27,13 @@ public class UserController : Controller
     }
     public IActionResult Summary()
     {
-        return View(db.Users.Where(i => i.Username == HttpContext.Session.GetString("Username")));
+        return View(_db.Users.Where(i => i.Username == HttpContext.Session.GetString("Username")));
     }
 
     [HttpPost]
     public IActionResult Summary(User p)
     {
-        foreach (var item in db.Users)
+        foreach (var item in _db.Users)
         {
             if (item.Username == p.Username)
             {
@@ -42,7 +43,7 @@ public class UserController : Controller
         }
         string hash = ComputeSHA256Hash(p.PasswordHash!);
         p.PasswordHash = hash;
-        foreach (var item in db.Users)
+        foreach (var item in _db.Users)
         {
             if(item.Email == p.Email)
             {
@@ -50,8 +51,8 @@ public class UserController : Controller
                 return View("Login");
             }
         }
-        db.Users.Add(p);
-        db.SaveChanges();
+        _db.Users.Add(p);
+        _db.SaveChanges();
         HttpContext.Session.SetString("Username", p.Username!);
         HttpContext.Session.SetString("EmailUser", p.Email!);
         return RedirectToAction("Index", "Home");
@@ -67,7 +68,7 @@ public class UserController : Controller
     {
         string hash = ComputeSHA256Hash(p.PasswordHash!);
         bool userFound = false;
-        foreach (var item in db.Users)
+        foreach (var item in _db.Users)
         {
             if (item.Email == p.Email && item.PasswordHash == hash)
             {
