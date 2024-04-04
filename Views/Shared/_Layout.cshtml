@@ -53,10 +53,10 @@
                                                 @Context.Session.GetString("EmailUser")
                                             </button>
                                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                <li><a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Riepilogo">Profilo</a></li>
-                                                <li><a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a></li>
+                                                <li><a class="dropdown-item" asp-area="" asp-controller="User" asp-action="Profile" asp-route-id="@Context.Session.GetInt32("UserId")">Profile</a></li>
+                                                <li><a class="dropdown-item" asp-area="" asp-controller="User" asp-action="Favourite">Favourite</a></li>
                                                 <li><hr class="dropdown-divider"></li>
-                                                <li><a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Logout">Logout</a></li>
+                                                <li><a class="dropdown-item" asp-area="" asp-controller="User" asp-action="Logout">Logout</a></li>
                                             </ul>
                                         </div>
                                     </li>

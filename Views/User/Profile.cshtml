@@ -9,15 +9,26 @@
                     <div class="card mb-3 mx-auto">
                         <div class="row mb-3">
                             <div class="col-md-8">
-                                @context.Users.Where(i => i.UserId == Model)
+                                @{
+                                    foreach(var item in context.Users){
+                                        if(item.UserId == Model){ <p> @item.Username </p> }
+                                    }
+                                }
                             </div>
                             <div class="col-md-4">
-                                ùùùù
+                                @{
+                                    foreach(var item in context.Users){
+                                        if(item.UserId == Model){ 
+                                            <div style="width: 50px; height: 50px; border-radius: 50%; background-color: #007bff; color: #fff; display: flex; justify-content: center; align-items: center; font-size: 24px;">
+                                                @item.Username?.Substring(0, 1)
+                                            </div> 
+                                        }
+                                    }
+                                }
                             </div>
                         </div>
                     </div>
                 </div>
-
                 <div class="col-md-8">
                     Online announcement
                     <div class="card mb-3 mx-auto" style="max-width: 540px;">

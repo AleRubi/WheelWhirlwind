@@ -55,6 +55,14 @@ public class UserController : Controller
         _db.SaveChanges();
         HttpContext.Session.SetString("Username", p.Username!);
         HttpContext.Session.SetString("EmailUser", p.Email!);
+        foreach (var item in _db.Users)
+        {
+            if(item.Username == p.Username)
+            {
+                HttpContext.Session.SetInt32("UserId", item.UserId);
+                break;
+            }
+        }
         return RedirectToAction("Index", "Home");
     }
     public IActionResult Logout()
@@ -74,6 +82,7 @@ public class UserController : Controller
             {
                 HttpContext.Session.SetString("Username", p.Email!);
                 HttpContext.Session.SetString("EmailUser", p.Email!);
+                HttpContext.Session.SetInt32("UserId", item.UserId);
                 userFound = true;
                 break;
             }
@@ -95,6 +104,11 @@ public class UserController : Controller
             builder.Append(b.ToString("x2"));
         }
         return builder.ToString();
+    }
+
+    public IActionResult Profile(int id)
+    {
+        return View(id);
     }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
