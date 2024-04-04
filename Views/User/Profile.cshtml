@@ -1,6 +1,8 @@
 @inject ApplicationDbContext context
 @model int
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
 <div class="container py-5">
     <div class="row justify-content-center">
         <div class="col-md-8">
@@ -11,7 +13,9 @@
                             <div class="col-md-8">
                                 @{
                                     foreach(var item in context.Users){
-                                        if(item.UserId == Model){ <p> @item.Username </p> }
+                                        if(item.UserId == Model){ 
+                                            <h6 style="margin: 10px 10px 0; font-weight: bold; font-size: 22px;">@item.Username</h6>
+                                        }
                                     }
                                 }
                             </div>
@@ -26,11 +30,66 @@
                                     }
                                 }
                             </div>
+                            <div class="col-md-12" style="margin-top: 10px;">
+                                <div style="margin-left: 10px;">
+                                    @{
+                                        foreach(var item in context.Users){
+                                            if(item.UserId == Model){ 
+                                                <span>@item.Name @item.Surname</span>
+                                            }
+                                        }
+                                    }
+                                </div>
+                                <div class="star-rating" style="margin-left: 10px;">
+                                    @{
+                                        double averageRating = 0;
+                                        int fullStars = 0, totalStars = 5, review = 0;
+                                        bool halfStar = false;
+                                        foreach(var item in context.Users){
+                                            if(item.UserId == Model){
+                                                if(item.NumberStars > 0){
+                                                    review = item.NumberStars;
+                                                    averageRating = (double)item.Stars / item.NumberStars;
+                                                    <span>@averageRating</span>
+                                                    fullStars = (int)averageRating; 
+                                                    halfStar = (averageRating - fullStars) < 1 && (averageRating - fullStars) != 0;
+                                                }else{
+                                                    <span>0,0</span>
+                                                }
+                                            }
+                                        }
+                                        for (int i = 0; i < totalStars; i++){
+                                            if (i < fullStars){
+                                                <i class="fas fa-star"></i>
+                                            }
+                                            else if (halfStar && i == fullStars){
+                                                <i class="fas fa-star-half-alt"></i>
+                                            }
+                                            else{
+                                                <i class="far fa-star"></i>
+                                            }
+                                        }
+                                        <span>@review reviews</span>
+                                    }
+                                </div>
+                                <div style="margin-left: 10px;">
+                                    @{
+                                        int count = 0;
+                                        foreach(var item in context.Users){
+                                            foreach(var ogg in context.VehicleListings){
+                                                if(item.UserId == ogg.UserId){ count++; }
+                                            }
+                                        }
+                                        <span>@count  Online announcements</span>
+                                    }
+                                </div>
+                            </div>
                         </div>
+
                     </div>
                 </div>
                 <div class="col-md-8">
-                    Online announcement
+                    Online announcements
                     <div class="card mb-3 mx-auto" style="max-width: 540px;">
                         <div class="row g-0">
                             <div class="col-md-4">

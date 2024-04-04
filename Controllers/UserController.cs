@@ -111,6 +111,12 @@ public class UserController : Controller
         return View(id);
     }
 
+    [HttpPost]
+    public IActionResult Sell(int id)
+    {
+        return View(id);
+    }
+
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
     {
