@@ -105,30 +105,33 @@
         }
 
         @{foreach(var item in Model){
-            <div class="card mb-3 mx-auto" style="max-width: 540px;">
-                <div class="row g-0">
-                    <div class="col-md-4">
-                        @{foreach(var ogg in context.VehicleImages){
-                            if(ogg.VehicleId == item.VehicleId){
-                                <img src="~/Images/@ogg.Path" class="img-fluid rounded-start" alt="">
-                                break;
-                            }
-                        }}
-                    </div>
-                    <div class="col-md-8">
-                        <div class="card-body">
-                            @{foreach(var ogg in context.Vehicles){
+            <form method="post" asp-action="Announcement">
+                <div class="card mb-3 mx-auto" style="max-width: 540px;">
+                    <div class="row g-0">
+                        <div class="col-md-4">
+                            @{foreach(var ogg in context.VehicleImages){
                                 if(ogg.VehicleId == item.VehicleId){
-                                    <h5 class="card-title">@ogg.Title</h5>
-                                    <p class="card-text">@ogg.Description<br>@ogg.Price€</p>
-                                    <p class="card-text"><small class="text-muted">@ogg.RegistrationMonth/@ogg.RegistrationYear &nbsp; @ogg.Mileage km &nbsp; @ogg.Fuel &nbsp; @ogg.Transmission </small></p>
+                                    <img src="~/Images/@ogg.Path" class="img-fluid rounded-start" alt="">
                                     break;
                                 }
                             }}
                         </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                @{foreach(var ogg in context.Vehicles){
+                                    if(ogg.VehicleId == item.VehicleId){
+                                        <h5 class="card-title">@ogg.Title</h5>
+                                        <p class="card-text">@ogg.Description<br>@ogg.Price€</p>
+                                        <p class="card-text"><small class="text-muted">@ogg.RegistrationMonth/@ogg.RegistrationYear &nbsp; @ogg.Mileage km &nbsp; @ogg.Fuel &nbsp; @ogg.Transmission </small></p>
+                                        break;
+                                    }
+                                }}
+                                <button type="submit" class="opacity-0 stretched-link"></button>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </form>
         }}
         <nav aria-label="Page navigation">
             <ul class="pagination justify-content-center">

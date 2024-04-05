@@ -22,9 +22,10 @@ public class VehicleController : Controller
 
         ViewBag.Page = currentPage;
         ViewBag.TotalPages = (int)Math.Ceiling((double)_db.VehicleListings.Count() / pageSize);
+
         return View(listings);
     }
-    [HttpGet]
+    [HttpPost]
     public IActionResult Announcement(){
         return View();
     }
