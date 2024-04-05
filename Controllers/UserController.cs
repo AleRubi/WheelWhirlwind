@@ -180,9 +180,13 @@ public class UserController : Controller
 
     public IActionResult AddFavourite(int id)
     {
+        if(string.IsNullOrEmpty(HttpContext.Session.GetString("Username")))
+        {
+            return View("Login");
+        }
         int? userId = HttpContext.Session.GetInt32("UserId");
         
-        if (userId.HasValue){
+        if(userId.HasValue){
             var isOwner = _db.VehicleListings.Any(i => i.UserId == userId && i.VehicleId == id);
             
             if (!isOwner){

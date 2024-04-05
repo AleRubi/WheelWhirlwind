@@ -9,6 +9,7 @@
     if(Model == obj.VehicleId){
       <div class="text-center">
         <h4>@obj.Title</h4>
+        <a href="@Url.Action("AddFavourite", "User", new { id = obj.VehicleId })" class="btn btn-warning btn-star float-end">&#9733;</a>
       </div>
       <div class="text-center">
         <h6>@obj.Location</h6>
