@@ -75,10 +75,8 @@
                                 <div style="margin-left: 10px;">
                                     @{
                                         int count = 0;
-                                        foreach(var item in context.Users){
-                                            foreach(var ogg in context.VehicleListings){
-                                                if(item.UserId == ogg.UserId){ count++; }
-                                            }
+                                        foreach(var item in context.VehicleListings){
+                                            if(item.UserId == Model){ count++; }
                                         }
                                         <span>@count  Online announcements</span>
                                     }
