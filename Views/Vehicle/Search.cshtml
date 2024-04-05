@@ -35,24 +35,6 @@
             </div>
 
             <div class="form-group">
-                <label for="km">Kilometers:</label>
-                <input type="range" class="form-control-range" id="km" name="km" min="@context.Vehicles.Min(v => v.Mileage)" max="@context.Vehicles.Max(v => v.Mileage)" step="1000" value="0" oninput="updateSliderValue(this.value, 'km-output')">
-                <span id="km-output">0 km</span>
-            </div>
-
-            <div class="form-group">
-                <label for="engineSize">Engine Size:</label>
-                <input type="range" class="form-control-range" id="engineSize" name="engineSize" min="@context.Vehicles.Min(v => v.Displacement)" max="@context.Vehicles.Max(v => v.Displacement)" step="5" value="0" oninput="updateSliderValue(this.value, 'engineSize-output')>
-                <span id="engineSize-output">0 cc</span>
-            </div>
-
-            <div class="form-group">
-                <label for="horsepower">Horsepower:</label>
-                <input type="range" class="form-control-range" id="horsepower" name="horsepower" min="@context.Vehicles.Min(v => v.HorsePower)" max="@context.Vehicles.Max(v => v.HorsePower)" step="10" value="0" oninput="updateSliderValue(this.value, 'horsepower-output')>
-                <span id="horsepower-output">0 HP</span>
-            </div>
-
-            <div class="form-group">
                 <label for="fuel">Fuel:</label>
                 <select class="form-control" id="fuel" name="fuel">
                     <option value="">Select Fuel</option>
@@ -70,12 +52,6 @@
                         <option value="@Emissions">@Emissions</option>
                     }
                 </select>
-            </div>
-
-            <div class="form-group">
-                <label for="price">Price:</label>
-                <input type="text" class="form-control" id="price-slider" data-slider-min="@context.Vehicles.Min(v => v.Price)" data-slider-max="@context.Vehicles.Max(v => v.Price)" data-slider-step="1000" data-slider-value="[0, 50000]"/>
-                <span id="price-output">0 - 50000</span>
             </div>
 
             <div class="form-group">
