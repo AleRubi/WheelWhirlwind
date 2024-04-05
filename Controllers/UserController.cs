@@ -171,7 +171,23 @@ public class UserController : Controller
 
     public IActionResult Favourite()
     {
+        if(string.IsNullOrEmpty(HttpContext.Session.GetString("Username")))
+        {
+            return View("Login");
+        }
         return View();
+    }
+
+    public IActionResult AddFavourite(int id)
+    {
+        VehicleUserFavourite vuf = new(){
+            UserId = HttpContext.Session.GetInt32("UserId"),
+            VehicleId = id
+        };
+        _db.VehicleUserFavourites.Add(vuf);
+        _db.SaveChanges();
+        
+        return View("Favourite");
     }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

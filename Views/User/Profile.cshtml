@@ -97,24 +97,21 @@
                                     <div class="row g-0">
                                         <div class="col-md-4">
                                             @{
-                                                foreach(var ogg in context.VehicleImages){
-                                                    if(ogg.VehicleId == item.VehicleId){
-                                                        <img src="~/Images/@ogg.Path" class="img-fluid rounded-start" alt="">
-                                                        break;
-                                                    }
+                                                var vehicleImage = context.VehicleImages.FirstOrDefault(img => img.VehicleId == item.VehicleId);
+                                                if (vehicleImage != null) {
+                                                    <img src="~/Images/@vehicleImage.Path" class="img-fluid rounded-start" alt="">
                                                 }
                                             }
                                         </div>
                                         <div class="col-md-8">
                                             <div class="card-body">
                                                 @{
-                                                    foreach(var ogg in context.Vehicles){
-                                                        if(ogg.VehicleId == item.VehicleId){
-                                                            <h5 class="card-title">@ogg.Title</h5>
-                                                            <p class="card-text">@ogg.Description<br>@ogg.Price€</p>
-                                                            <p class="card-text"><small class="text-muted">@ogg.RegistrationMonth/@ogg.RegistrationYear &nbsp; @ogg.Mileage km &nbsp; @ogg.Fuel &nbsp; @ogg.Transmission </small></p>
-                                                            break;
-                                                        }
+                                                    var vehicle = context.Vehicles.FirstOrDefault(v => v.VehicleId == item.VehicleId);
+                                                    if (vehicle != null) {
+                                                        <h5 class="card-title">@vehicle.Title</h5>
+                                                        <p class="card-text">@vehicle.Description<br>@vehicle.Price€</p>
+                                                        <p class="card-text"><small class="text-muted">@vehicle.RegistrationMonth/@vehicle.RegistrationYear &nbsp; @vehicle.Mileage km &nbsp; @vehicle.Fuel &nbsp; @vehicle.Transmission </small></p>
+                                                        <a href="@Url.Action("AddFavourite", "User", new { id = vehicle.VehicleId })" class="btn btn-warning btn-star">&#9733;</a>
                                                     }
                                                 }
                                             </div>
