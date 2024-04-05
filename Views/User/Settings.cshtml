@@ -1,0 +1,50 @@
+@inject ApplicationDbContext context
+@model User;
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-lg border-primary">
+                <div class="card-body">
+                    <h1 class="card-title text-center mb-4">Change personal data</h1>
+
+                    <form method="post" asp-action="ChangeData">
+                        @{
+                            foreach(var item in context.Users){
+                                if(item.UserId == Context.Session.GetInt32("UserId")){
+                                    <div class="col-md-6">
+                                        <label for="Username" class="form-label">Username</label>
+                                        <input required asp-for="Username" class="form-control" id="Username" value="@item.Username" readonly>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="Nome" class="form-label">Name</label>
+                                        <input required asp-for="Name" class="form-control" id="Name" value="@item.Name">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="Cognome" class="form-label">Surname</label>
+                                        <input required asp-for="Surname" class="form-control" id="Cognome" value="@item.Surname">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="Email" class="form-label">Email</label>
+                                        <input placeholder="example@domain.com" required type="email" asp-for="Email" class="form-control" id="Email" value="@item.Email" readonly>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="PhoneNumber" class="form-label">Phone number</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text" style="width: 50px;">+39 </span>
+                                            <input required type="tel" class="form-control" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" id="PhoneNumber" name="PhoneNumber" maxlength="12" placeholder="123-456-7890" value="@item.PhoneNumber">
+                                        </div>
+                                    </div>
+                                    <div class="text-center">
+                                        <button type="submit" class="btn btn-primary">Confirm</button>
+                                    </div>
+                                    break;
+                                }
+                            }
+                        }
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

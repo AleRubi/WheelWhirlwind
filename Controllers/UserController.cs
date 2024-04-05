@@ -205,6 +205,34 @@ public class UserController : Controller
         return View("Favourite");
     }
 
+    public IActionResult Settings(int id)
+    {
+        if(id != HttpContext.Session.GetInt32("UserId"))
+        {
+            return RedirectToAction("Index", "Home");
+        }
+        return View();
+    }
+
+    [HttpPost]
+    public IActionResult ChangeData(User updatedUser)
+    {
+        var existingUser = _db.Users.FirstOrDefault(u => u.UserId == updatedUser.UserId);
+        
+        if (existingUser != null){
+            existingUser.Name = updatedUser.Name;
+            existingUser.Surname = updatedUser.Surname;
+            existingUser.PhoneNumber = updatedUser.PhoneNumber;
+            
+            _db.SaveChanges();
+
+            TempData["Message"] = "User data updated successfully.";
+        }else{
+            TempData["AlertMessage"] = "User not found.";
+        }
+        return RedirectToAction("Profile", HttpContext.Session.GetInt32("UserId"));
+    }
+
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
     {

@@ -29,6 +29,7 @@ public class VehicleController : Controller
     public IActionResult Announcement(int id){
         return View(id);
     }
+    
     [HttpPost]
     public IActionResult Filter(){
         return RedirectToAction("Search", "Vehicle");
