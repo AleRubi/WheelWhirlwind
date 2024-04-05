@@ -180,13 +180,28 @@ public class UserController : Controller
 
     public IActionResult AddFavourite(int id)
     {
-        VehicleUserFavourite vuf = new(){
-            UserId = HttpContext.Session.GetInt32("UserId"),
-            VehicleId = id
-        };
-        _db.VehicleUserFavourites.Add(vuf);
-        _db.SaveChanges();
+        int? userId = HttpContext.Session.GetInt32("UserId");
         
+        if (userId.HasValue){
+            var isOwner = _db.VehicleListings.Any(i => i.UserId == userId && i.VehicleId == id);
+            
+            if (!isOwner){
+                var existingFavorite = _db.VehicleUserFavourites.FirstOrDefault(f => f.UserId == userId && f.VehicleId == id);
+                
+                if(existingFavorite != null){
+                    _db.VehicleUserFavourites.Remove(existingFavorite);
+                }
+                else{
+                    VehicleUserFavourite vuf = new()
+                    {
+                        UserId = userId.Value,
+                        VehicleId = id
+                    };
+                    _db.VehicleUserFavourites.Add(vuf);
+                }
+                _db.SaveChanges();
+            }
+        }
         return View("Favourite");
     }
 

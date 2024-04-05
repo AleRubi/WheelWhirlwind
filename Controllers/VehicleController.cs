@@ -25,14 +25,16 @@ public class VehicleController : Controller
 
         return View(listings);
     }
-    [HttpPost]
-    public IActionResult Announcement(){
-        return View();
+
+    public IActionResult Announcement(int id){
+        return View(id);
     }
     [HttpPost]
     public IActionResult Filter(){
         return RedirectToAction("Search", "Vehicle");
     }
+
+    
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
