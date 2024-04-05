@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace WheelWhirlwind.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240403172942_FirstCreation")]
+    [Migration("20240405165148_FirstCreation")]
     partial class FirstCreation
     {
         /// <inheritdoc />
