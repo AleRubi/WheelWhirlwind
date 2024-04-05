@@ -1,10 +1,7 @@
-﻿@{
-    ViewData["Title"] = "Privacy Policy";
-}
-
-<div class="container mt-5">
+﻿<div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-md-8">
+            <!-- Header -->
             <div class="jumbotron">
                 <h1 class="display-4 text-center">Privacy Policy</h1>
                 <p class="lead text-center">At WheelWhirlwind, we are committed to protecting the privacy and security of our users and visitors. This privacy policy outlines how we collect, use, and safeguard personal information gathered through our website and communication channels.</p>
@@ -14,65 +11,107 @@
 
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class="card mb-4">
-                <div class="card-body">
-                    <h2>Information We Collect:</h2>
-                    <ul class="list-unstyled">
-                        <li>
-                            <h5>Personal Information:</h5>
+            <!-- Accordion -->
+            <div class="accordion" id="privacyAccordion">
+
+                <!-- Information We Collect Section -->
+                <div class="card mb-4">
+                    <div class="card-header" id="headingOne">
+                        <h2 class="mb-0">
+                            <button class="btn btn-link" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                Information We Collect
+                            </button>
+                        </h2>
+                    </div>
+
+                    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-bs-parent="#privacyAccordion">
+                        <div class="card-body">
                             <p>We may collect personal information such as names, email addresses, phone numbers, and location data when provided voluntarily by users for purposes such as creating an account, listing vehicles, or contacting sellers.</p>
-                        </li>
-                        <li>
-                            <h5>Usage Information:</h5>
-                            <p>We may collect non-personal information about the usage of our website, including IP addresses, browser types, and pages visited, to analyze trends, improve user experience, and administer the site effectively.</p>
-                        </li>
-                    </ul>
+                        </div>
+                    </div>
                 </div>
-            </div>
 
-            <div class="card mb-4">
-                <div class="card-body">
-                    <h2>How We Use Your Information:</h2>
-                    <ul class="list-unstyled">
-                        <li>
-                            <h5>Communication:</h5>
+                <!-- How We Use Your Information Section -->
+                <div class="card mb-4">
+                    <div class="card-header" id="headingTwo">
+                        <h2 class="mb-0">
+                            <button class="btn btn-link" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                                How We Use Your Information
+                            </button>
+                        </h2>
+                    </div>
+                    <div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo" data-bs-parent="#privacyAccordion">
+                        <div class="card-body">
                             <p>We may use the information provided to facilitate communication between buyers and sellers, respond to inquiries, and send important updates related to listings, account status, or promotional offers.</p>
-                        </li>
-                        <li>
-                            <h5>Improvement of Services:</h5>
-                            <p>We may use aggregated data to analyze trends, track user interactions, and enhance our website content, search functionality, and user experience to better serve our community.</p>
-                        </li>
-                    </ul>
+                        </div>
+                    </div>
                 </div>
-            </div>
 
-            <div class="card mb-4">
-                <div class="card-body">
-                    <h2>Protection of Information:</h2>
-                    <p>We implement appropriate security measures to protect against unauthorized access, alteration, disclosure, or destruction of personal information collected through our website and other channels. We restrict access to personal information to authorized personnel only, who are required to maintain the confidentiality of such information.</p>
+                <!-- Protection of Information Section -->
+                <div class="card mb-4">
+                    <div class="card-header" id="headingThree">
+                        <h2 class="mb-0">
+                            <button class="btn btn-link" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
+                                Protection of Information
+                            </button>
+                        </h2>
+                    </div>
+                    <div id="collapseThree" class="collapse show" aria-labelledby="headingThree" data-bs-parent="#privacyAccordion">
+                        <div class="card-body">
+                            <p>We implement appropriate security measures to protect against unauthorized access, alteration, disclosure, or destruction of personal information collected through our website and other channels. We restrict access to personal information to authorized personnel only, who are required to maintain the confidentiality of such information.</p>
+                        </div>
+                    </div>
                 </div>
-            </div>
 
-            <div class="card mb-4">
-                <div class="card-body">
-                    <h2>Third-Party Disclosure:</h2>
-                    <p>We do not sell, trade, or transfer personal information to third parties without consent unless required by law or to facilitate transactions between buyers and sellers on our platform.</p>
+                <!-- Third-Party Disclosure Section -->
+                <div class="card mb-4">
+                    <div class="card-header" id="headingFour">
+                        <h2 class="mb-0">
+                            <button class="btn btn-link" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="true" aria-controls="collapseFour">
+                                Third-Party Disclosure
+                            </button>
+                        </h2>
+                    </div>
+                    <div id="collapseFour" class="collapse show" aria-labelledby="headingFour" data-bs-parent="#privacyAccordion">
+                        <div class="card-body">
+                            <p>We do not sell, trade, or transfer personal information to third parties without consent unless required by law or to facilitate transactions between buyers and sellers on our platform.</p>
+                        </div>
+                    </div>
                 </div>
-            </div>
 
-            <div class="card mb-4">
-                <div class="card-body">
-                    <h2>Your Choices:</h2>
-                    <p>You have the right to review, update, or request the deletion of your personal information by accessing your account settings or contacting us directly. You may choose to opt-out of receiving promotional emails or newsletters by updating your communication preferences.</p>
+                <!-- Your Choices Section -->
+                <div class="card mb-4">
+                    <div class="card-header" id="headingFive">
+                        <h2 class="mb-0">
+                            <button class="btn btn-link" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="true" aria-controls="collapseFive">
+                                Your Choices
+                            </button>
+                        </h2>
+                    </div>
+                    <div id="collapseFive" class="collapse show" aria-labelledby="headingFive" data-bs-parent="#privacyAccordion">
+                        <div class="card-body">
+                            <p>You have the right to review, update, or request the deletion of your personal information by accessing your account settings or contacting us directly. You may choose to opt-out of receiving promotional emails or newsletters by updating your communication preferences.</p>
+                        </div>
+                    </div>
                 </div>
-            </div>
 
-            <div class="card mb-4">
-                <div class="card-body">
-                    <h2>Policy Updates:</h2>
-                    <p>We reserve the right to update this privacy policy periodically to reflect changes in our practices or legal requirements. We encourage you to review this policy periodically for any updates. By using our website and providing personal information, you consent to the collection, use, and disclosure of information in accordance with this privacy policy.</p>
-                    <p>If you have any questions or concerns about our privacy practices, please contact us at +00 513 7384551.</p>
+                <!-- Policy Updates Section -->
+                <div class="card mb-4">
+                    <div class="card-header" id="headingSix">
+                        <h2 class="mb-0">
+                            <button class="btn btn-link" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSix" aria-expanded="true" aria-controls="collapseSix">
+                                Policy Updates
+                            </button>
+                        </h2>
+                    </div>
+                    <div id="collapseSix" class="collapse show" aria-labelledby="headingSix" data-bs-parent="#privacyAccordion">
+                        <div class="card-body">
+                            <p>We reserve the right to update this privacy policy periodically to reflect changes in our practices or legal requirements. We encourage you to review this policy periodically for any updates. By using our website and providing personal information, you consent to the collection, use, and disclosure of information in accordance with this privacy policy.</p>
+                            <p>If you have any questions or concerns about our privacy practices, please contact us at +00 513 7384551.</p>
+                        </div>
+                    </div>
                 </div>
+
             </div>
         </div>
     </div>

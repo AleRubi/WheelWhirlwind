@@ -99,7 +99,7 @@
                             if(Model == item.UserId){
                                 <div class="card mb-3 mx-auto" style="max-width: 540px;">
                                     <div class="row g-0">
-                                        <div class="col-md-4">
+                                        <div class="col-md-4 d-flex align-items-center justify-content-center">
                                             @{
                                                 var vehicleImage = context.VehicleImages.FirstOrDefault(img => img.VehicleId == item.VehicleId);
                                                 if (vehicleImage != null) {
@@ -108,19 +108,29 @@
                                             }
                                         </div>
                                         <div class="col-md-8">
-                                            <div class="card-body">
+                                            <div class="card-body d-flex justify-content-between align-items-center">
                                                 @{
                                                     var vehicle = context.Vehicles.FirstOrDefault(v => v.VehicleId == item.VehicleId);
                                                     if (vehicle != null) {
                                                         <h5 class="card-title">@vehicle.Title</h5>
-                                                        <p class="card-text">@vehicle.Description<br>@vehicle.Price€</p>
-                                                        <p class="card-text"><small class="text-muted">@vehicle.RegistrationMonth/@vehicle.RegistrationYear &nbsp; @vehicle.Mileage km &nbsp; @vehicle.Fuel &nbsp; @vehicle.Transmission </small></p>
-                                                        <a href="@Url.Action("AddFavourite", "User", new { id = vehicle.VehicleId })" class="btn btn-warning btn-star">&#9733;</a>
+                                                        <div>
+                                                            <a href="@Url.Action("AddFavourite", "User", new { id = vehicle.VehicleId })" class="btn btn-warning btn-star">&#9733;</a>
+                                                        </div>
+                                                    }
+                                                }
+                                            </div>
+                                            <div class="card-body">
+                                                @{
+                                                    var vehicle1 = context.Vehicles.FirstOrDefault(v => v.VehicleId == item.VehicleId);
+                                                    if (vehicle1 != null) {
+                                                        <p class="card-text">@vehicle1.Description<br>@vehicle1.Price€</p>
+                                                        <p class="card-text"><small class="text-muted">@vehicle1.RegistrationMonth/@vehicle1.RegistrationYear &nbsp; @vehicle1.Mileage km &nbsp; @vehicle1.Fuel &nbsp; @vehicle1.Transmission </small></p>
                                                     }
                                                 }
                                             </div>
                                         </div>
                                     </div>
+
                                 </div>
                             }
                         }

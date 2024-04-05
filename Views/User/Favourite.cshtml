@@ -11,34 +11,38 @@
                             if(Context.Session.GetInt32("UserId") == item.UserId){
                                 <div class="card mb-3 mx-auto" style="max-width: 540px;">
                                     <div class="row g-0">
-                                        <div class="col-md-4">
+                                        <div class="col-md-4 d-flex align-items-center justify-content-center">
                                             @{
-                                                foreach(var ogg in context.VehicleImages){
-                                                    if(ogg.VehicleId == item.VehicleId){
-                                                        <img src="~/Images/@ogg.Path" class="img-fluid rounded-start" alt="">
-                                                        break;
-                                                    }
+                                                var vehicleImage = context.VehicleImages.FirstOrDefault(img => img.VehicleId == item.VehicleId);
+                                                if (vehicleImage != null) {
+                                                    <img src="~/Images/@vehicleImage.Path" class="img-fluid rounded-start" alt="">
                                                 }
                                             }
                                         </div>
                                         <div class="col-md-8">
+                                            <div class="card-body d-flex justify-content-between align-items-center">
+                                                @{
+                                                    var vehicle = context.Vehicles.FirstOrDefault(v => v.VehicleId == item.VehicleId);
+                                                    if (vehicle != null) {
+                                                        <h5 class="card-title">@vehicle.Title</h5>
+                                                        <div>
+                                                            <a href="@Url.Action("AddFavourite", "User", new { id = vehicle.VehicleId })" class="btn btn-warning btn-star">&#9733;</a>
+                                                        </div>
+                                                    }
+                                                }
+                                            </div>
                                             <div class="card-body">
                                                 @{
-                                                    foreach(var ogg in context.Vehicles){
-                                                            @if(ogg.VehicleId == item.VehicleId){
-                                                                <a asp-action="Announcement" asp-controller="Vehicle" asp-route-id="@ogg.VehicleId">
-                                                                    <h5 class="card-title">@ogg.Title</h5>
-                                                                    <p class="card-text">@ogg.Description<br>@ogg.Price€</p>
-                                                                    <p class="card-text"><small class="text-muted">@ogg.RegistrationMonth/@ogg.RegistrationYear &nbsp; @ogg.Mileage km &nbsp; @ogg.Fuel &nbsp; @ogg.Transmission </small></p>
-                                                                </a>
-                                                                <a href="@Url.Action("AddFavourite", "User", new { id = ogg.VehicleId })" class="btn btn-warning btn-star">&#9733;</a>
-                                                                break;
-                                                            }
+                                                    var vehicle1 = context.Vehicles.FirstOrDefault(v => v.VehicleId == item.VehicleId);
+                                                    if (vehicle1 != null) {
+                                                        <p class="card-text">@vehicle1.Description<br>@vehicle1.Price€</p>
+                                                        <p class="card-text"><small class="text-muted">@vehicle1.RegistrationMonth/@vehicle1.RegistrationYear &nbsp; @vehicle1.Mileage km &nbsp; @vehicle1.Fuel &nbsp; @vehicle1.Transmission </small></p>
                                                     }
                                                 }
                                             </div>
                                         </div>
                                     </div>
+
                                 </div>
                             }
                         }
