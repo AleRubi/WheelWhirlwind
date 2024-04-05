@@ -114,7 +114,64 @@ public class UserController : Controller
     [HttpPost]
     public IActionResult Sell(int id)
     {
-        return View(id);
+        if(string.IsNullOrEmpty(HttpContext.Session.GetString("Username")))
+        {
+            return View("Login");
+        }
+        return View();
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Publish(Vehicle v, List<IFormFile> Images)
+    {
+        _db.Vehicles.Add(v);
+        _db.SaveChanges();
+
+        int? vehicleId = _db.Vehicles
+            .OrderByDescending(v => v.VehicleId)
+            .Select(v => v.VehicleId)
+            .FirstOrDefault();
+        
+        VehicleListing vl = new(){
+            VehicleId = vehicleId,
+            UserId = HttpContext.Session.GetInt32("UserId")
+        };
+        _db.VehicleListings.Add(vl);
+        _db.SaveChanges();
+
+        foreach (var item in Images)
+        {
+            if (item != null && item.Length > 0)
+            {
+                var imageDir = "Images";
+                var directoryPath = Path.Combine("wwwroot", imageDir);
+                if (!Directory.Exists(directoryPath))
+                {
+                    Directory.CreateDirectory(directoryPath);
+                }
+
+                var fileName = Guid.NewGuid().ToString() + Path.GetExtension(item.FileName);
+                var filePath = Path.Combine(directoryPath, fileName);
+
+                using var stream = new FileStream(filePath, FileMode.Create);
+                await item.CopyToAsync(stream);
+
+                VehicleImage vi = new()
+                {
+                    Path = fileName,
+                    VehicleId = vehicleId
+                };
+                _db.VehicleImages.Add(vi);
+                _db.SaveChanges();
+
+            }
+        }
+        return View("Profile", HttpContext.Session.GetInt32("UserId"));
+    }
+
+    public IActionResult Favourite()
+    {
+        return View();
     }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

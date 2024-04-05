@@ -1,3 +1,187 @@
 @inject ApplicationDbContext context
-@model int
+@model Vehicle
 
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-lg border-primary">
+                <div class="card-body">
+                    <h1 class="card-title text-center mb-4">Make an announcement</h1>
+
+                    <form method="post" asp-action="Publish" enctype="multipart/form-data">
+                        <div class="mb-3 row">
+                            <label for="Type" class="col-sm-3 col-form-label text-end">Vehicle type</label>
+                            <div class="col-sm-9">
+                                <select required asp-for="Type" class="form-select" id="Type">
+                                    <option value="">Select vehicle type</option>
+                                    <option value="Car">Car</option>
+                                    <option value="Bike">Bike</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="mb-3 row" id="brand">
+                            <label for="Brand" class="col-sm-3 col-form-label text-end">Brand</label>
+                            <div class="col-sm-9">
+                                <input required asp-for="Brand" class="form-control" id="Brand" placeholder="Enter the brand" readonly>
+                            </div>
+                        </div>
+                        <div class="mb-3 row" id="Model">
+                            <label for="Model" class="col-sm-3 col-form-label text-end">Model</label>
+                            <div class="col-sm-9">
+                                <input required asp-for="Model" class="form-control" id="Model" placeholder="Enter the model">
+                            </div>
+                        </div>
+                        <div class="mb-3 row" id="RegistrationMonth">
+                            <label for="RegistrationMonth" class="col-sm-3 col-form-label text-end">Registration month</label>
+                            <div class="col-sm-9">
+                                <input required asp-for="RegistrationMonth" type="number" min="1" max="12" class="form-control" id="RegistrationMonth" placeholder="1" >
+                            </div>
+                        </div>
+                        <div class="mb-3 row" id="RegistrationYear">
+                            <label for="RegistrationYear" class="col-sm-3 col-form-label text-end">Registration year</label>
+                            <div class="col-sm-9">
+                                <input required asp-for="RegistrationYear" type="number" min="1900" max="@DateTime.Now.Year.ToString()" class="form-control" id="RegistrationYear" placeholder="1900" oninput="validateYear(this)">
+                            </div>
+                        </div>
+                        <div class="mb-3 row" id="Mileage">
+                            <label for="Mileage" class="col-sm-3 col-form-label text-end">Mileage</label>
+                            <div class="col-sm-9">
+                                <input required asp-for="Mileage" type="number" min="0" class="form-control" id="Mileage">
+                            </div>
+                        </div>
+                        <div class="mb-3 row" id="Displacement">
+                            <label for="Displacement" class="col-sm-3 col-form-label text-end">Displacement</label>
+                            <div class="col-sm-9">
+                                <input required asp-for="Displacement" type="number" class="form-control" id="Displacement">
+                            </div>
+                        </div>
+                        <div class="mb-3 row" id="HorsePower">
+                            <label for="HorsePower" class="col-sm-3 col-form-label text-end">Horsepower</label>
+                            <div class="col-sm-9">
+                                <input required asp-for="HorsePower" type="number" class="form-control" id="HorsePower">
+                            </div>
+                        </div>
+                        <div class="mb-3 row" id="Fuel">
+                            <label for="Fuel" class="col-sm-3 col-form-label text-end">Fuel</label>
+                            <div class="col-sm-9">
+                                <select required asp-for="Fuel" class="form-select" id="Fuel">
+                                    <option value="">Select fuel</option>
+                                    <option value="Petrol">Petrol</option>
+                                    <option value="Diesel">Diesel</option>
+                                    <option value="GPL">GPL</option>
+                                    <option value="Methane">Methane</option>
+                                    <option value="Hynrid">Hybrid</option>
+                                    <option value="Electric">Electric</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="mb-3 row" id="Transmission">
+                            <label for="Transmission" class="col-sm-3 col-form-label text-end">Transmission</label>
+                            <div class="col-sm-9">
+                                <select required asp-for="Transmission" class="form-select" id="Transmission">
+                                    <option value="">Select transmission</option>
+                                    <option value="Manual">Manual</option>
+                                    <option value="Automatic">Automatic</option>
+                                    <option value="Sequential">Sequential</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="mb-3 row" id="Emissions">
+                            <label for="Emissions" class="col-sm-3 col-form-label text-end">Emissions</label>
+                            <div class="col-sm-9">
+                                <select required asp-for="Emissions" class="form-select" id="Emissions">
+                                    <option value="">Select emissions</option>
+                                    <option value="Euro 6">Euro 6</option>
+                                    <option value="Euro 5">Euro 5</option>
+                                    <option value="Euro 4">Euro 4</option>
+                                    <option value="Euro 3">Euro 3</option>
+                                    <option value="Euro 2">Euro 2</option>
+                                    <option value="Euro 1">Euro 1</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="mb-3 row" id="Doors">
+                            <label for="Doors" class="col-sm-3 col-form-label text-end">Doors</label>
+                            <div class="col-sm-9">
+                                <select asp-for="Doors" class="form-select" id="Doors">
+                                    <option value="">Select doors</option>
+                                    <option value="3">3</option>
+                                    <option value="5">5</option>
+                                    <option value="7">7</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="mb-3 row" id="Seats">
+                            <label for="Seats" class="col-sm-3 col-form-label text-end">Seats</label>
+                            <div class="col-sm-9">
+                                <input asp-for="Seats" type="number" min="2" class="form-control" placeholder="2" id="Seats">
+                            </div>
+                        </div>
+                        <div class="mb-3 row" id="Price">
+                            <label for="Price" class="col-sm-3 col-form-label text-end">Price</label>
+                            <div class="col-sm-9">
+                                <input asp-for="Price" type="number" min="1" class="form-control" placeholder="1" id="Price">
+                            </div>
+                        </div>
+                        <div class="mb-3 row" id="Title">
+                            <label for="Title" class="col-sm-3 col-form-label text-end">Title</label>
+                            <div class="col-sm-9">
+                                <input required asp-for="Title" class="form-control" placeholder="Enter the title" id="Title">
+                            </div>
+                        </div>
+                        <div class="mb-3 row" id="Description">
+                            <label for="Description" class="col-sm-3 col-form-label text-end">Description</label>
+                            <div class="col-sm-9">
+                                <input asp-for="Description" class="form-control" placeholder="Enter the description" id="Description">
+                            </div>
+                        </div>
+                        <div class="mb-3 row" id="Location">
+                            <label for="Location" class="col-sm-3 col-form-label text-end">Location</label>
+                            <div class="col-sm-9">
+                                <input required asp-for="Location" class="form-control" placeholder="Enter the location" id="Location">
+                            </div>
+                        </div>
+                        <div class="mb-3 row" id="Images">
+                            <label for="Images" class="col-sm-3 col-form-label text-end">Images</label>
+                            <div class="col-sm-9">
+                                <input type="file" name="Images" id="Images" class="form-control" multiple>
+                                <small class="form-text text-muted">Select one or more images to upload.</small>
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary">Publish</button>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    var typeDropdown = document.getElementById("Type");
+    var BrandInput = document.getElementById("Brand");
+    var ModelInput = document.getElementById("Model");
+    var doorsField = document.getElementById("Doors");
+    var seatsField = document.getElementById("Seats");
+    
+    typeDropdown.addEventListener("change", function() {
+        var selectedType = this.value;
+        BrandInput.value = "";
+        ModelInput.value = "";
+        
+        if (this.value === "") {
+            BrandInput.setAttribute("readonly", true);
+            ModelInput.setAttribute("readonly", true);
+        } else {
+            BrandInput.removeAttribute("readonly");
+            ModelInput.removeAttribute("readonly");
+        }
+        if (selectedType === "Bike") {
+            doorsField.style.display = "none";
+            seatsField.style.display = "none";
+        }
+    });
+</script>
