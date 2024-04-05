@@ -13,9 +13,16 @@ public class VehicleController : Controller
     }
 
     [HttpGet]
-    public IActionResult Announcements(){
-        
+    public IActionResult Search(){
         return View();
+    }
+    [HttpGet]
+    public IActionResult Announcement(){
+        return View();
+    }
+    [HttpPost]
+    public IActionResult Filter(){
+        return RedirectToAction("Search", "Vehicle");
     }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
