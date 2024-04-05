@@ -5,16 +5,24 @@ using WheelWhirlwind.Models;
 public class VehicleController : Controller
 {
     private readonly ILogger<VehicleController> _logger;
-
+    private readonly ApplicationDbContext _db ;
     
-    public VehicleController(ILogger<VehicleController> logger)
+    public VehicleController(ILogger<VehicleController> logger, ApplicationDbContext db)
     {
         _logger = logger;
+        _db = db;
     }
 
     [HttpGet]
-    public IActionResult Search(){
-        return View();
+    public ActionResult Search(int? page){
+        int currentPage = page ?? 1;
+        int pageSize = 10; // Number of listings per page
+
+        var listings = _db.VehicleListings.Skip((currentPage - 1) * pageSize).Take(pageSize).ToList();
+
+        ViewBag.Page = currentPage;
+        ViewBag.TotalPages = (int)Math.Ceiling((double)_db.VehicleListings.Count() / pageSize);
+        return View(listings);
     }
     [HttpGet]
     public IActionResult Announcement(){
