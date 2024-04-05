@@ -12,53 +12,91 @@
 
 <div class="row">
     <div class="col-4">
-        <h2>Search</h2>
-        <div class="mb-3">
-            <form method="post" asp-action="Filter">
-                <div class="row">
-                    <div class="col-8">
-                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                    </div>
-                    <div class="col-4">
-                        <button class="btn btn-secondary" type="submit">Search</button>
-                    </div>
-                </div>
-            </form>
-        </div>
-
-        <h2>Filter</h2>
+    <h2>Filters</h2>
         <form id="filter-form">
             <div class="form-group">
-                <label for="make">Make:</label>
-                <select class="form-control" id="make" name="make">
-                    <option value="all">All Makes</option>
-                    <option value="toyota">Toyota</option>
-                    <option value="honda">Honda</option>
-                    <option value="ford">Ford</option>
-                    <!-- Add more options as needed -->
+                <label for="brand">Brand:</label>
+                <select class="form-control" id="brand" name="brand">
+                    <option value="">Select Brand</option>
+                    @foreach (var Brand in context.Vehicles.Select(v => v.Brand).Distinct()){
+                        <option value="@Brand">@Brand</option>
+                    }
                 </select>
             </div>
 
             <div class="form-group">
                 <label for="model">Model:</label>
                 <select class="form-control" id="model" name="model">
-                    <option value="all">All Models</option>
-                    <!-- Options will be populated dynamically based on selected make -->
+                    <option value="">Select Model</option>
+                    @foreach (var Model in context.Vehicles.Select(v => v.Model).Distinct()){
+                        <option value="@Model">@Model</option>
+                    }
                 </select>
             </div>
 
             <div class="form-group">
-                <label for="price">Price Range:</label>
-                <input type="range" class="form-control-range" id="price" name="price" min="0" max="50000" step="1000" value="0">
-                <span id="price-output">$0</span>
+                <label for="km">Kilometers:</label>
+                <input type="range" class="form-control-range" id="km" name="km" min="@context.Vehicles.Min(v => v.Mileage)" max="@context.Vehicles.Max(v => v.Mileage)" step="1000" value="0" oninput="updateSliderValue(this.value, 'km-output')">
+                <span id="km-output">0 km</span>
             </div>
-            
-            <button type="submit" class="btn btn-primary">Apply Filters</button>
+
+            <div class="form-group">
+                <label for="engineSize">Engine Size:</label>
+                <input type="range" class="form-control-range" id="engineSize" name="engineSize" min="@context.Vehicles.Min(v => v.Displacement)" max="@context.Vehicles.Max(v => v.Displacement)" step="5" value="0" oninput="updateSliderValue(this.value, 'engineSize-output')>
+                <span id="engineSize-output">0 cc</span>
+            </div>
+
+            <div class="form-group">
+                <label for="horsepower">Horsepower:</label>
+                <input type="range" class="form-control-range" id="horsepower" name="horsepower" min="@context.Vehicles.Min(v => v.HorsePower)" max="@context.Vehicles.Max(v => v.HorsePower)" step="10" value="0" oninput="updateSliderValue(this.value, 'horsepower-output')>
+                <span id="horsepower-output">0 HP</span>
+            </div>
+
+            <div class="form-group">
+                <label for="fuel">Fuel:</label>
+                <select class="form-control" id="fuel" name="fuel">
+                    <option value="">Select Fuel</option>
+                    @foreach (var Fuel in context.Vehicles.Select(v => v.Fuel).Distinct()){
+                        <option value="@Fuel">@Fuel</option>
+                    }
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="emissions">Emissions:</label>
+                <select class="form-control" id="emissions" name="emissions">
+                    <option value="">Select Emissions</option>
+                    @foreach (var Emissions in context.Vehicles.Select(v => v.Emissions).Distinct()){
+                        <option value="@Emissions">@Emissions</option>
+                    }
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="price">Price:</label>
+                <input type="text" class="form-control" id="price-slider" data-slider-min="@context.Vehicles.Min(v => v.Price)" data-slider-max="@context.Vehicles.Max(v => v.Price)" data-slider-step="1000" data-slider-value="[0, 50000]"/>
+                <span id="price-output">0 - 50000</span>
+            </div>
+
+            <div class="form-group">
+                <label for="location">Location:</label>
+                <select class="form-control" id="location" name="location">
+                    <option value="">Select Location</option>
+                    @foreach (var Location in context.Vehicles.Select(v => v.Location).Distinct()){
+                        <option value="@Location">@Location</option>
+                    }
+                </select>
+            </div>
+
+            <button type="button" class="btn btn-primary" onclick="applyFilters()">Apply Filters</button>
         </form>
     </div>
 
+
+
+
     <div class="col-7">
-        @{var pageSize = 10; // Number of listings per page
+        @{var pageSize = 3; // Number of listings per page
             var totalListings = context.VehicleListings.Count();
             var totalPages = (int)Math.Ceiling((double)totalListings / pageSize);
             int currentPage = ViewBag.Page != null ? (int)ViewBag.Page : 1;
@@ -104,30 +142,21 @@
     </div>
 </div>
 
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-    // Populate model dropdown based on selected make
-        document.getElementById("make").addEventListener("change", function() {
-            var selectedMake = this.value;
-            var modelSelect = document.getElementById("model");
-            // Clear existing options
-            modelSelect.innerHTML = '';
-            // Add new options based on selected make
-            if (selectedMake === "toyota") {
-                modelSelect.innerHTML += '<option value="camry">Camry</option>';
-                modelSelect.innerHTML += '<option value="corolla">Corolla</option>';
-            } else if (selectedMake === "honda") {
-                modelSelect.innerHTML += '<option value="accord">Accord</option>';
-                modelSelect.innerHTML += '<option value="civic">Civic</option>';
-            } else if (selectedMake === "ford") {
-                modelSelect.innerHTML += '<option value="focus">Focus</option>';
-                modelSelect.innerHTML += '<option value="mustang">Mustang</option>';
-            }
-        });
 
-        // Display selected price range
-        document.getElementById("price").addEventListener("input", function() {
-            document.getElementById("price-output").innerText = '$' + this.value;
-        });
+<script>
+    function updateSliderValue(value, outputId) {
+        document.getElementById(outputId).innerText = value;
+    }
+</script>
+<script>
+    // Initialize Bootstrap Slider for price range
+    $("#price-slider").slider({
+        tooltip: 'always',
+        formatter: function(value) {
+            return '€' + value;
+        }
+    }).on('slide', function(slideEvt) {
+        var range = slideEvt.value;
+        $('#price-output').text('€' + range[0] + ' - €' + range[1]);
     });
 </script>

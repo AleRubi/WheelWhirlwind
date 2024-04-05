@@ -16,7 +16,7 @@ public class VehicleController : Controller
     [HttpGet]
     public ActionResult Search(int? page){
         int currentPage = page ?? 1;
-        int pageSize = 10; // Number of listings per page
+        int pageSize = 3; // Number of listings per page
 
         var listings = _db.VehicleListings.Skip((currentPage - 1) * pageSize).Take(pageSize).ToList();
 
