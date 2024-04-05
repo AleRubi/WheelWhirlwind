@@ -2,59 +2,127 @@
 @model int;
 
 @{
-    ViewData["Title"] = "Announcements";
+  ViewData["Title"] = "Announcements";
 }
 
-<div class="text-center">
-    <h4>Vehicle</h4>
-</div>
-
-<div id="carouselExampleIndicators" class="carousel slide">
-  <div class="carousel-indicators">
-    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
-  </div>
-  <div class="carousel-inner">
-    <div class="carousel-item active">
-      <img src="..." class="d-block w-100" alt="...">
-    </div>
-    <div class="carousel-item">
-      <img src="..." class="d-block w-100" alt="...">
-    </div>
-    <div class="carousel-item">
-      <img src="..." class="d-block w-100" alt="...">
-    </div>
-  </div>
-  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Previous</span>
-  </button>
-  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Next</span>
-  </button>
-</div>
-
-
-<div class="container py-5">
-    <div class="row justify-content-center">
-        <div class="card">
-            <div class="card-body">
-                
-                    <div class="mb-3">
-                        <label>thing: </label>
-                    </div>
-                    <div class="mb-3">
-                        <label>thing: </label>
-                    </div>
-                    <div>
-                        <label>thing: </label>
-                    </div>
-            </div>
+@{foreach(var obj in context.Vehicles){
+    if(Model == obj.VehicleId){
+      <div class="text-center">
+        <h4>@obj.Title</h4>
+      </div>
+      <div class="text-center">
+        <h6>@obj.Location</h6>
+      </div>
+      <div id="carouselExampleIndicators" class="carousel slide">
+        <div class="carousel-inner">
+          @foreach(var ogg in context.VehicleImages){
+            if(ogg.VehicleId == obj.VehicleId){
+              <div class="carousel-item active">
+                <img src="~/Images/@ogg.Path" class="d-block w-100" alt="">
+              </div>
+            }
+          }
         </div>
-    </div>
-</div>
+      
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
 
-<p>Description:</p>
-<p>Qualcosa</p>
+      <div class="container py-5">
+        <div class="row justify-content-center">
+          <div class="card">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-4">
+                  <div class="mb-3">
+                    <label>Type: @obj.Type</label>
+                  </div>
+                  <div class="mb-3">
+                    <label>Brand: @obj.Brand</label>
+                  </div>
+                  <div class="mb-3">
+                    <label>Model: @obj.Model</label>
+                  </div>
+                  <div>
+                    <label>Mileage: @obj.Mileage</label>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <div class="mb-3">
+                    <label>Registration: @obj.RegistrationMonth , @obj.RegistrationYear</label>
+                  </div>
+                  <div class="mb-3">
+                    <label>Displacement: @obj.Displacement</label>
+                  </div>
+                  <div class="mb-3">
+                    <label>HorsePower: @obj.HorsePower</label>
+                  </div>
+                  <div>
+                    <label>Trasmission: @obj.Transmission</label>
+                  </div>
+                </div>
+                <div class="col-3">
+                  <div class="mb-3">
+                    <label>Fuel: @obj.Fuel</label>
+                  </div>
+                  <div class="mb-3">
+                    <label>Emission: @obj.Emissions</label>
+                  </div>
+                  <div class="mb-3">
+                    <label>Seats: @obj.Seats</label>
+                  </div>
+                  <div>
+                    <label>Price: @obj.Price $</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <p>Description:</p>
+      <p>@obj.Description</p>
+      
+      @foreach(var item in context.VehicleListings){
+        if(item.VehicleId == Model){
+          foreach(var ogg in context.Users){
+            if(item.UserId == ogg.UserId){
+              <div class="container py-5">
+                <div class="row justify-content-center">
+                    <div class="card mb-3 mx-auto" style="max-width: 540px;">
+                      <a asp-action="Profile" asp-controller="User" class="text-decoration-none" asp-route-id="@ogg.UserId">
+                        <div class="row g-0">
+                          <div class="col-md-4">
+                            <div class="d-flex justify-content-center align-items-center" style="height: 6vh;">
+                                <div style="width: 50px; height: 50px; border-radius: 50%; background-color: #007bff; color: #fff; display: flex; justify-content: center; align-items: center; font-size: 24px;">
+                                  @ogg.Username?.Substring(0, 1)
+                                </div>
+                            </div>
+                          </div>
+                          <div class="col-md-8">
+                            <div class="card-body">
+                              <h3>@ogg.Username</h3>
+                            </div>
+                          </div>
+                        </div>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              break;
+            }
+          }
+          break;
+        }
+      }
+    }
+}}
+
+
