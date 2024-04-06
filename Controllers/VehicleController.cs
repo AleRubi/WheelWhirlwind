@@ -18,8 +18,8 @@ public class VehicleController : Controller
         int currentPage = page ?? 1;
         int pageSize = 3; // Number of listings per page
         List<VehicleListing> listings = new();
-        if(Filter != null){
-            listings = _db.VehicleListings.Where(vl => _db.Vehicles.Any(v => v.VehicleId == vl.VehicleId && v.Type == type)).Skip((currentPage - 1) * pageSize).Take(pageSize).ToList();
+        if(HttpContext.Session.GetString("typeFilter") != null){
+            listings = _db.VehicleListings.Where(vl => _db.Vehicles.Any(v => v.VehicleId == vl.VehicleId && v.Type == HttpContext.Session.GetString("typeFilter"))).Skip((currentPage - 1) * pageSize).Take(pageSize).ToList();
         }else{
             listings = _db.VehicleListings.Skip((currentPage - 1) * pageSize).Take(pageSize).ToList();
         }
@@ -36,6 +36,18 @@ public class VehicleController : Controller
     [HttpPost]
     public IActionResult Filter(){
         return RedirectToAction("Search", "Vehicle");
+    }
+    [HttpPost]
+    public ActionResult ClearFilter()
+    {
+        HttpContext.Session.Remove("typeFilter");
+        return View("Search");
+    }
+    [HttpPost]
+    public ActionResult GetDataFromSession(string typeFilter)
+    {
+        HttpContext.Session.SetString("typeFilter", typeFilter);
+        return View("Search");
     }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

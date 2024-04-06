@@ -8,11 +8,23 @@
     <div class="container mt-5">
         <div class="row">
             <div class="col">
-                <a href="@Url.Action("Search", "Vehicle", new { type = "Car"})" class="btn btn-primary btn-lg">Car</a>
+                <a onclick="SetTypeFilterSession('Car')" href="@Url.Action("Search", "Vehicle", new { type = "Car"})"  class="btn btn-primary btn-lg">Car</a>
             </div>
             <div class="col">
-                <a href="@Url.Action("Search", "Vehicle", new { type = "Bike"})" class="btn btn-secondary btn-lg">Bikes</a>
+                <a onclick="SetTypeFilterSession('Bike')" href="@Url.Action("Search", "Vehicle", new { type = "Bike"})"  class="btn btn-secondary btn-lg">Bikes</a>
             </div>
         </div>
   </div>
 </div>
+
+<script>
+function SetTypeFilterSession(string typeFilter){
+    var typeFilterValue = typeFilter;
+
+    $.ajax({
+        url: '/Home/SetSessionValue',
+        method: 'POST',
+        data: { typeFilter: typeFilterValue } // Send the value to the controller
+    });
+}
+</script>
