@@ -17,7 +17,7 @@
 </head>
 <body id="theme" data-bs-theme="light" onload="OnInit()">
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm border-bottom box-shadow mb-3" id="navbar">
             <div class="container-fluid">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
                     <img src="~/Images/WeeWi.png" alt="WheelWhirlwind" height="40" width="40">
@@ -115,10 +115,10 @@
 
 <script>
     function clearSessionFilter() {
-    $.ajax({
-        url: '/Vehicle/ClearFilter',
-        type: 'POST'
-    });
-}
+        $.ajax({
+            url: '/Vehicle/ClearFilter',
+            type: 'POST'
+        });
+    }
 
 </script>
