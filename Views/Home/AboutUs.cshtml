@@ -14,35 +14,28 @@
 
     <div class="row justify-content-center">
         <div class="col-md-8">
-
-            <div id="accordion">
-
-                <div class="card mb-4">
-                    <div class="card-header" id="headingMission">
-                        <h2 class="mb-0">
-                            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseMission" aria-expanded="true" aria-controls="collapseMission">
-                                Our Mission
-                            </button>
-                        </h2>
-                    </div>
-
-                    <div id="collapseMission" class="collapse show" aria-labelledby="headingMission" data-parent="#accordion">
-                        <div class="card-body">
+            <div class="accordion">
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            Our Mission
+                        </button>
+                    </h2>
+                    <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent=".accordion">
+                        <div class="accordion-body">
                             <p>At WheelWhirlwind, our mission is to revolutionize the way people buy and sell vehicles. We strive to provide a user-friendly platform that empowers individuals to find their dream cars and bikes or reach a wider audience to sell their vehicles hassle-free.</p>
                         </div>
                     </div>
                 </div>
 
-                <div class="card mb-4">
-                    <div class="card-header" id="headingWhyChooseUs">
-                        <h2 class="mb-0">
-                            <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseWhyChooseUs" aria-expanded="true" aria-controls="collapseWhyChooseUs">
-                                Why Choose Us?
-                            </button>
-                        </h2>
-                    </div>
-                    <div id="collapseWhyChooseUs" class="collapse show" aria-labelledby="headingWhyChooseUs" data-parent="#accordion">
-                        <div class="card-body">
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                            Why Choose Us?
+                        </button>
+                    </h2>
+                    <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent=".accordion">
+                        <div class="accordion-body">
                             <p>With WheelWhirlwind, you can expect:</p>
                             <ul>
                                 <li>Wide Selection: Explore a vast inventory of cars, bikes, and other vehicles to find the perfect match for your needs.</li>
@@ -54,36 +47,32 @@
                     </div>
                 </div>
 
-                <div class="card mb-4">
-                    <div class="card-header" id="headingContact">
-                        <h2 class="mb-0">
-                            <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseContact" aria-expanded="true" aria-controls="collapseContact">
-                                Contact Us
-                            </button>
-                        </h2>
-                    </div>
-                    <div id="collapseContact" class="collapse show" aria-labelledby="headingContact" data-parent="#accordion">
-                        <div class="card-body">
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                            Contact Us
+                        </button>
+                    </h2>
+                    <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent=".accordion">
+                        <div class="accordion-body">
                             <p>We're always here to help! If you have any questions, suggestions, or feedback, feel free to reach out to us:</p>
                             <ul>
-                                <li>Email: info@carbikemarket.com</li>
+                                <li>Email: info@wheelwhirlwind.com</li>
                                 <li>Phone: +00 513 7384551</li>
-                                <li>Address: 123 Main Street, Cityville, State, Country</li>
+                                <li>Address: Via Vittoria Colonna, 10, 47923 Rimini RN</li>
                             </ul>
                         </div>
                     </div>
                 </div>
 
-                <div class="card mb-4">
-                    <div class="card-header" id="headingFounders">
-                        <h2 class="mb-0">
-                            <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseFounders" aria-expanded="true" aria-controls="collapseFounders">
-                                Meet Our Founders
-                            </button>
-                        </h2>
-                    </div>
-                    <div id="collapseFounders" class="collapse show" aria-labelledby="headingFounders" data-parent="#accordion">
-                        <div class="card-body">
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                            Meet Our Founders
+                        </button>
+                    </h2>
+                    <div id="collapseFour" class="accordion-collapse collapse" data-bs-parent=".accordion">
+                        <div class="accordion-body">
                             <p>WheelWhirlwind was founded by Alessandro and Joel, two automotive enthusiasts with a passion for technology and innovation.</p>
                             <p><strong>Alessandro:</strong> With years of experience in the automotive industry, Alessandro brings expertise in vehicle sales, marketing, and customer relations. His vision for WheelWhirlwind stems from a desire to streamline the buying and selling process, making it easier and more enjoyable for enthusiasts worldwide.</p>
                             <p><strong>Joel:</strong> As a tech-savvy entrepreneur, Joel specializes in web development, digital marketing, and user experience design. His dedication to creating intuitive online platforms led to the inception of WheelWhirlwind, where he combines his technical skills with a deep understanding of the automotive market to deliver a cutting-edge solution for users.</p>
@@ -91,9 +80,7 @@
                         </div>
                     </div>
                 </div>
-
             </div>
-
         </div>
     </div>
 </div>
