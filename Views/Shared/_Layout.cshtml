@@ -8,12 +8,6 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/WheelWhirlwind.styles.css" asp-append-version="true" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-
-    <style>
-        .dropdown-menu {
-            min-width: 100%;
-        }
-    </style>
 </head>
 <body id="theme" data-bs-theme="light" onload="OnInit()">
     <header>
@@ -46,10 +40,11 @@
                             @if(string.IsNullOrEmpty(Context.Session.GetString("Username"))){
                                 <ul class="navbar-nav ms-auto">
                                     <li class="nav-item ">
-                                        <a class="nav-link" asp-area="" asp-controller="User" asp-action="Login">Login</a>
+                                        <a class="btn btn-outline-primary my-2 my-sm-0 btn-login" asp-area="" asp-controller="User" asp-action="Login">Login</a>
                                     </li>
+                                    <span style="padding: 5px;"></span>
                                     <li class="nav-item ">
-                                        <a class="nav-link" asp-area="" asp-controller="User" asp-action="SignUp">Sign Up</a>
+                                        <a class="btn btn-outline-primary my-2 my-sm-0 btn-register" asp-area="" asp-controller="User" asp-action="SignUp">Sign Up</a>
                                     </li>
                                 </ul>
                             }else{
@@ -57,7 +52,7 @@
                                     <li class="nav-item">
                                         <form asp-area="" asp-controller="User" asp-action="Sell" method="post">
                                             <input type="hidden" name="userId" value="@Context.Session.GetInt32("UserId")">
-                                            <button type="submit" class="btn btn-danger">
+                                            <button type="submit" class="btn btn-outline-danger">
                                                 <i class="fas fa-plus"> </i> Insert an announcement
                                             </button>
                                         </form>
@@ -67,7 +62,7 @@
                                 <ul class="navbar-nav ms-auto">
                                     <li class="nav-item">
                                         <div class="dropdown">
-                                            <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <button class="btn btn-outline-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
                                                 @Context.Session.GetString("EmailUser")
                                             </button>
                                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
