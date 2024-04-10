@@ -75,7 +75,7 @@
         @{
             var pageSize = 3; // Number of listings per page
             var totalListings = context.VehicleListings.Count();
-            var totalPages = (int)Math.Ceiling((double)totalListings / pageSize);
+            var totalPages = ViewBag.totalPages;
             int currentPage = ViewBag.Page != null ? (int)ViewBag.Page : 1;
 
             var listings = context.VehicleListings.Skip((currentPage - 1) * pageSize).Take(pageSize);
@@ -90,7 +90,7 @@
                             @{
                                 var vehicleImage = context.VehicleImages.FirstOrDefault(img => img.VehicleId == item.VehicleId);
                                 if (vehicleImage != null) {
-                                    <img src="~/Images/@vehicleImage.Path" class="img-fluid rounded-start" alt="">
+                                    <img src="~/Images/@vehicleImage.Path" class="img-fluid rounded-start h-100 object-fit-cover" alt="">
                                 }
                             }
                         </div>
@@ -114,29 +114,10 @@
             <ul class="pagination justify-content-center">
                 @for (int i = 1; i <= totalPages; i++){
                     <li class="page-item @(i == ViewBag.Page ? "active" : "")">
-                        <a class="page-link" href="@Url.Action("Search", new { page = i })">@i</a>
+                        <a class="page-link" href="@Url.Action("Search", "Vehicle", new { page = i, type = ViewBag.Type })">@i</a>
                     </li>
                 }
             </ul>
         </nav>
     </div>
 </div>
-
-
-<script>
-    function updateSliderValue(value, outputId) {
-        document.getElementById(outputId).innerText = value;
-    }
-</script>
-<script>
-    // Initialize Bootstrap Slider for price range
-    $("#price-slider").slider({
-        tooltip: 'always',
-        formatter: function(value) {
-            return '€' + value;
-        }
-    }).on('slide', function(slideEvt) {
-        var range = slideEvt.value;
-        $('#price-output').text('€' + range[0] + ' - €' + range[1]);
-    });
-</script>

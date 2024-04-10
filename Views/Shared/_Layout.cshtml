@@ -26,7 +26,7 @@
                             <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Vehicle" asp-action="Search" onclick="SessionFilterClear()">Search</a>
+                            <a class="nav-link" asp-area="" asp-controller="Vehicle" asp-action="Search">Search</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
@@ -107,13 +107,3 @@
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
-
-<script>
-    function clearSessionFilter() {
-        $.ajax({
-            url: '/Vehicle/ClearFilter',
-            type: 'POST'
-        });
-    }
-
-</script>
