@@ -8,10 +8,20 @@
     <div class="container mt-5">
         <div class="row">
             <div class="col">
-                <a onclick="SetTypeFilterSession('Car')" href="@Url.Action("Search", "Vehicle", new { type = "Car"})"  class="btn btn-primary btn-lg">Car</a>
+                @* <a onclick="SetTypeFilterSession('Car')" href="@Url.Action("Search", "Vehicle", new { type = "Car"})"  class="btn btn-primary btn-lg">Car</a> *@
+                <form method="get" action="@Url.Action("Search", "Vehicle")">
+                    <input type="number" name="page" id="page" value="1" hidden>
+                    <input type="text" name="type" id="type" value="Car" hidden>
+                    <button class="btn btn-primary btn-lg" type="submit">Car</button>
+                </form>
             </div>
             <div class="col">
-                <a onclick="SetTypeFilterSession('Bike')" href="@Url.Action("Search", "Vehicle", new { type = "Bike"})"  class="btn btn-secondary btn-lg">Bikes</a>
+                @* <a onclick="SetTypeFilterSession('Bike')" href="@Url.Action("Search", "Vehicle", new { type = "Bike"})"  class="btn btn-secondary btn-lg">Bikes</a> *@
+                <form method="get" action="@Url.Action("Search", "Vehicle")">
+                    <input type="number" name="page" id="page" value="1" hidden>
+                    <input type="text" name="type" id="type" value="Bike" hidden>
+                    <button class="btn btn-secondary btn-lg" type="submit">Bike</button>
+                </form>
             </div>
         </div>
   </div>

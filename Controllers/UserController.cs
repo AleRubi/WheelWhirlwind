@@ -234,7 +234,40 @@ public class UserController : Controller
         }else{
             TempData["AlertMessage"] = "User not found.";
         }
-        return RedirectToAction("Profile", HttpContext.Session.GetInt32("UserId"));
+        return View("Profile", HttpContext.Session.GetInt32("UserId"));
+    }
+
+    public IActionResult Delete(int id){
+        if(string.IsNullOrEmpty(HttpContext.Session.GetString("Username")))
+        {
+            return View("Login");
+        }
+
+        var favourite = _db.VehicleUserFavourites.Where(i => i.VehicleId == id);
+        foreach (var item in favourite)
+        {
+            _db.VehicleUserFavourites.Remove(item);
+        }
+        
+        var listing = _db.VehicleListings.Where(i => i.VehicleId == id);
+        foreach (var item in listing)
+        {
+            _db.VehicleListings.Remove(item);
+        }
+
+        var img = _db.VehicleImages.Where(i => i.VehicleId == id);
+        foreach (var item in img)
+        {
+            _db.VehicleImages.Remove(item);
+        }
+
+        var vehicle = _db.Vehicles.Where(i => i.VehicleId == id);
+        foreach (var item in vehicle)
+        {
+            _db.Vehicles.Remove(item);
+        }
+        _db.SaveChanges();
+        return View("Profile", HttpContext.Session.GetInt32("UserId"));
     }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

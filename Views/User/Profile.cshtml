@@ -84,44 +84,55 @@
                             </div>
                         </div>
                     </div>
-                    <div class="text-center">
-                        <a href="@Url.Action("Settings", "User", new { id = Context.Session.GetInt32("UserId") })" class="btn btn-primary">
-                            <i class="fas fa-cog"></i> Settings
-                        </a>
-                    </div>
+                    @if(Model == Context.Session.GetInt32("UserId")){
+                        <div class="text-center">
+                            <a href="@Url.Action("Settings", "User", new { id = Context.Session.GetInt32("UserId") })" class="btn btn-primary">
+                                <i class="fas fa-cog"></i> Settings
+                            </a>
+                        </div>
+                    }
                 </div>
                 <div class="col-md-8">
                     <h5>Online announcements</h5>
                     @{
                         foreach(var item in context.VehicleListings){
                             if(Model == item.UserId){
-                                <a href="@Url.Action("AddFavourite", "User", new { id = item.VehicleId })" class="btn btn-warning btn-star float-end">&#9733;</a>
-                                <a asp-action="Announcement" asp-controller="Vehicle" class="text-decoration-none" asp-route-id="@item.VehicleId">
-                                    <div class="card mb-3 mx-auto" style="max-width: 540px;">
-                                        <div class="row g-0">
-                                            <div class="col-md-4">
-                                                @{
-                                                    var vehicleImage = context.VehicleImages.FirstOrDefault(img => img.VehicleId == item.VehicleId);
-                                                    if (vehicleImage != null) {
-                                                        <img src="~/Images/@vehicleImage.Path" class="img-fluid rounded-start" alt="">
-                                                    }
-                                                }
-                                            </div>
-                                            <div class="col-md-8">
-                                                <div class="card-body">
-                                                    @{
-                                                        var vehicle = context.Vehicles.FirstOrDefault(v => v.VehicleId == item.VehicleId);
-                                                        if (vehicle != null) {
-                                                            <h5 class="card-title">@vehicle.Title</h5>
-                                                            <p class="card-text">@vehicle.Description<br>@vehicle.Price€</p>
-                                                            <p class="card-text"><small class="text-muted">@vehicle.RegistrationMonth/@vehicle.RegistrationYear &nbsp; @vehicle.Mileage km &nbsp; @vehicle.Fuel &nbsp; @vehicle.Transmission </small></p>
+                                <div class="row mb-3">
+                                    <div class="col-md-10">
+                                        <a asp-action="Announcement" asp-controller="Vehicle" class="text-decoration-none" asp-route-id="@item.VehicleId">
+                                            <div class="card mb-3 mx-auto" style="max-width: 540px;">
+                                                <div class="row g-0">
+                                                    <div class="col-md-4">
+                                                        @{
+                                                            var vehicleImage = context.VehicleImages.FirstOrDefault(img => img.VehicleId == item.VehicleId);
+                                                            if (vehicleImage != null) {
+                                                                <img src="~/Images/@vehicleImage.Path" class="img-fluid rounded-start" alt="">
+                                                            }
                                                         }
-                                                    }
+                                                    </div>
+                                                    <div class="col-md-8">
+                                                        <div class="card-body">
+                                                            @{
+                                                                var vehicle = context.Vehicles.FirstOrDefault(v => v.VehicleId == item.VehicleId);
+                                                                if (vehicle != null) {
+                                                                    <h5 class="card-title">@vehicle.Title</h5>
+                                                                    <p class="card-text">@vehicle.Description<br>@vehicle.Price€</p>
+                                                                    <p class="card-text"><small class="text-muted">@vehicle.RegistrationMonth/@vehicle.RegistrationYear &nbsp; @vehicle.Mileage km &nbsp; @vehicle.Fuel &nbsp; @vehicle.Transmission </small></p>
+                                                                }
+                                                            }
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </a>
                                     </div>
-                                </a>
+                                    <div class="col-md-2 justify-content-center">
+                                        <a href="@Url.Action("AddFavourite", "User", new { id = item.VehicleId })" class="btn btn-warning btn-star float-end">&#9733;</a>
+                                        @if(Model == Context.Session.GetInt32("UserId")){
+                                            <a href="@Url.Action("Delete", "User", new { id = item.VehicleId })" class="btn btn-danger float-end">Delete</a>
+                                        }
+                                    </div>
+                                </div>
                             }
                         }
                     }

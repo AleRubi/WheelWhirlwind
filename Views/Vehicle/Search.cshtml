@@ -72,7 +72,8 @@
 
 
     <div class="col-7">
-        @{var pageSize = 3; // Number of listings per page
+        @{
+            var pageSize = 3; // Number of listings per page
             var totalListings = context.VehicleListings.Count();
             var totalPages = (int)Math.Ceiling((double)totalListings / pageSize);
             int currentPage = ViewBag.Page != null ? (int)ViewBag.Page : 1;
