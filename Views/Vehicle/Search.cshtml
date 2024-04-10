@@ -8,13 +8,21 @@
 <div class="text-center">
     <h3>Vehicle announcements</h3>
 </div>
+@{
+    var pageSize = 3; // Number of listings per page
+    var totalListings = context.VehicleListings.Count();
+    var totalPages = ViewBag.totalPages;
+    int currentPage = ViewBag.Page != null ? (int)ViewBag.Page : 1;
+
+    var listings = context.VehicleListings.Skip((currentPage - 1) * pageSize).Take(pageSize);
+}
 
 
 <div class="row">
     <div class="col-4">
     <h2>Filters</h2>
-        <form id="filter-form">
-            <div class="form-group">
+        <form id="filter-form" method="get" action="Search">
+            <div class="form-group mb-3">
                 <label for="brand">Brand:</label>
                 <select class="form-control" id="brand" name="brand">
                     <option value="">Select Brand</option>
@@ -24,7 +32,7 @@
                 </select>
             </div>
 
-            <div class="form-group">
+            <div class="form-group mb-3">
                 <label for="model">Model:</label>
                 <select class="form-control" id="model" name="model">
                     <option value="">Select Model</option>
@@ -34,7 +42,7 @@
                 </select>
             </div>
 
-            <div class="form-group">
+            <div class="form-group mb-3">
                 <label for="fuel">Fuel:</label>
                 <select class="form-control" id="fuel" name="fuel">
                     <option value="">Select Fuel</option>
@@ -44,7 +52,7 @@
                 </select>
             </div>
 
-            <div class="form-group">
+            <div class="form-group mb-3">
                 <label for="emissions">Emissions:</label>
                 <select class="form-control" id="emissions" name="emissions">
                     <option value="">Select Emissions</option>
@@ -54,7 +62,7 @@
                 </select>
             </div>
 
-            <div class="form-group">
+            <div class="form-group mb-3">
                 <label for="location">Location:</label>
                 <select class="form-control" id="location" name="location">
                     <option value="">Select Location</option>
@@ -64,23 +72,11 @@
                 </select>
             </div>
 
-            <button type="button" class="btn btn-primary" onclick="applyFilters()">Apply Filters</button>
+            <button type="submit" class="btn btn-primary">Apply Filters</button>
         </form>
     </div>
 
-
-
-
     <div class="col-7">
-        @{
-            var pageSize = 3; // Number of listings per page
-            var totalListings = context.VehicleListings.Count();
-            var totalPages = ViewBag.totalPages;
-            int currentPage = ViewBag.Page != null ? (int)ViewBag.Page : 1;
-
-            var listings = context.VehicleListings.Skip((currentPage - 1) * pageSize).Take(pageSize);
-        }
-
         @{foreach(var item in Model){
             <a href="@Url.Action("AddFavourite", "User", new { id = item.VehicleId })" class="btn btn-warning btn-star float-end">&#9733;</a>
             <a asp-action="Announcement" asp-controller="Vehicle" class="text-decoration-none" asp-route-id="@item.VehicleId">

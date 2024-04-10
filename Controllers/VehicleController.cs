@@ -1,3 +1,4 @@
+using System.Data.Common;
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using WheelWhirlwind.Models;
@@ -14,24 +15,16 @@ public class VehicleController : Controller
     }
 
     [HttpGet]
-    public ActionResult Search(int? page, string? type){
+    public ActionResult Search(int? page, string? type, string? brand, string? model, string? fuel, string? emissions, string? location){
         int currentPage = page ?? 1;
         int pageSize = 3; // Number of listings per page
-        List<VehicleListing> listings = new();
-        List<VehicleListing> TotalListings = new();
-
-        if(type != null){
-            listings = _db.VehicleListings.Where(vl => _db.Vehicles.Any(v => v.VehicleId == vl.VehicleId && v.Type == type)).Skip((currentPage - 1) * pageSize).Take(pageSize).ToList();
-            TotalListings = _db.VehicleListings.Where(vl => _db.Vehicles.Any(v => v.VehicleId == vl.VehicleId && v.Type == type)).ToList();
-        }else{
-            listings = _db.VehicleListings.Skip((currentPage - 1) * pageSize).Take(pageSize).ToList();
-            TotalListings = _db.VehicleListings.ToList();
-        }
+        var q = _db.Filter(currentPage, pageSize, type, brand, model, fuel, emissions, location);
+        
         ViewBag.Page = currentPage;
-        ViewBag.Type = type;
-        ViewBag.TotalPages = (int)Math.Ceiling((double)TotalListings.Count / pageSize);
+        ViewBag.Type = type; ViewBag.Brand = brand; ViewBag.Model = model; ViewBag.Fuel = fuel; ViewBag.Emissions = emissions; ViewBag.Location = location;
+        ViewBag.TotalPages = (int)Math.Ceiling((double)q.TotalListings.Count / pageSize);
 
-        return View(listings);
+        return View(q.listings);
     }
 
     public IActionResult Announcement(int id){

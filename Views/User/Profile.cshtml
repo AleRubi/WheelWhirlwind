@@ -23,7 +23,7 @@
                                 @{
                                     foreach(var item in context.Users){
                                         if(item.UserId == Model){ 
-                                            <div style="width: 50px; height: 50px; border-radius: 50%; background-color: #007bff; color: #fff; display: flex; justify-content: center; align-items: center; font-size: 24px;">
+                                            <div style="width: 50px; height: 50px; border-radius: 50%; background-color: #007bff; color: #fff; display: flex; justify-content: center; align-items: center; font-size: 24px; margin-top: 10px;">
                                                 @item.Username?.Substring(0, 1)
                                             </div> 
                                         }
@@ -94,48 +94,46 @@
                 </div>
                 <div class="col-md-8">
                     <h5>Online announcements</h5>
-                    @{
-                        foreach(var item in context.VehicleListings){
-                            if(Model == item.UserId){
-                                <div class="row mb-3">
-                                    <div class="col-md-10">
-                                        <a asp-action="Announcement" asp-controller="Vehicle" class="text-decoration-none" asp-route-id="@item.VehicleId">
-                                            <div class="card mb-3 mx-auto" style="max-width: 540px;">
-                                                <div class="row g-0">
-                                                    <div class="col-md-4">
+                    @{foreach(var item in context.VehicleListings){
+                        if(Model == item.UserId){
+                            <div class="row mb-3">
+                                <div class="col-md-10">
+                                    <a asp-action="Announcement" asp-controller="Vehicle" class="text-decoration-none" asp-route-id="@item.VehicleId">
+                                        <div class="card mb-3 mx-auto" style="max-width: 540px;">
+                                            <div class="row g-0">
+                                                <div class="col-md-4">
+                                                    @{
+                                                        var vehicleImage = context.VehicleImages.FirstOrDefault(img => img.VehicleId == item.VehicleId);
+                                                        if (vehicleImage != null) {
+                                                            <img src="~/Images/@vehicleImage.Path" class="img-fluid rounded-start" alt="">
+                                                        }
+                                                    }
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <div class="card-body">
                                                         @{
-                                                            var vehicleImage = context.VehicleImages.FirstOrDefault(img => img.VehicleId == item.VehicleId);
-                                                            if (vehicleImage != null) {
-                                                                <img src="~/Images/@vehicleImage.Path" class="img-fluid rounded-start" alt="">
+                                                            var vehicle = context.Vehicles.FirstOrDefault(v => v.VehicleId == item.VehicleId);
+                                                            if (vehicle != null) {
+                                                                <h5 class="card-title">@vehicle.Title</h5>
+                                                                <p class="card-text">@vehicle.Description<br>@vehicle.Price€</p>
+                                                                <p class="card-text"><small class="text-muted">@vehicle.RegistrationMonth/@vehicle.RegistrationYear &nbsp; @vehicle.Mileage km &nbsp; @vehicle.Fuel &nbsp; @vehicle.Transmission </small></p>
                                                             }
                                                         }
                                                     </div>
-                                                    <div class="col-md-8">
-                                                        <div class="card-body">
-                                                            @{
-                                                                var vehicle = context.Vehicles.FirstOrDefault(v => v.VehicleId == item.VehicleId);
-                                                                if (vehicle != null) {
-                                                                    <h5 class="card-title">@vehicle.Title</h5>
-                                                                    <p class="card-text">@vehicle.Description<br>@vehicle.Price€</p>
-                                                                    <p class="card-text"><small class="text-muted">@vehicle.RegistrationMonth/@vehicle.RegistrationYear &nbsp; @vehicle.Mileage km &nbsp; @vehicle.Fuel &nbsp; @vehicle.Transmission </small></p>
-                                                                }
-                                                            }
-                                                        </div>
-                                                    </div>
                                                 </div>
                                             </div>
-                                        </a>
-                                    </div>
-                                    <div class="col-md-2 justify-content-center">
-                                        <a href="@Url.Action("AddFavourite", "User", new { id = item.VehicleId })" class="btn btn-warning btn-star float-end">&#9733;</a>
-                                        @if(Model == Context.Session.GetInt32("UserId")){
-                                            <a href="@Url.Action("Delete", "User", new { id = item.VehicleId })" class="btn btn-danger float-end">Delete</a>
-                                        }
-                                    </div>
+                                        </div>
+                                    </a>
                                 </div>
-                            }
+                                <div class="col-md-2 justify-content-center">
+                                    <a href="@Url.Action("AddFavourite", "User", new { id = item.VehicleId })" class="btn btn-warning btn-star float-end">&#9733;</a>
+                                    @if(Model == Context.Session.GetInt32("UserId")){
+                                        <a href="@Url.Action("Delete", "User", new { id = item.VehicleId })" class="btn btn-danger float-end">Delete</a>
+                                    }
+                                </div>
+                            </div>
                         }
-                    }
+                    }}
                 </div>
             </div>
         </div>
