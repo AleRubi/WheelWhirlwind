@@ -14,6 +14,13 @@
     var totalPages = ViewBag.totalPages;
     int currentPage = ViewBag.Page != null ? (int)ViewBag.Page : 1;
 
+    string brand = ViewBag.Brand;
+    string model = ViewBag.Model;
+    string fuel = ViewBag.Fuel;
+    string emissions = ViewBag.Emissions;
+    string location = ViewBag.Location;
+
+
     var listings = context.VehicleListings.Skip((currentPage - 1) * pageSize).Take(pageSize);
 }
 

@@ -105,7 +105,7 @@
                                                     @{
                                                         var vehicleImage = context.VehicleImages.FirstOrDefault(img => img.VehicleId == item.VehicleId);
                                                         if (vehicleImage != null) {
-                                                            <img src="~/Images/@vehicleImage.Path" class="img-fluid rounded-start" alt="">
+                                                            <img src="~/Images/@vehicleImage.Path" class="img-fluid rounded-start h-100 object-fit-cover" alt="">
                                                         }
                                                     }
                                                 </div>
